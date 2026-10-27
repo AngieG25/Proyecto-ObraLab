@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% block contenido %}
+<section class="tarjeta">
+  <h1>{{ proyecto['nombre'] }}</h1>
+  <p class="ayuda">Última actualización: {{ proyecto['actualizado'] }}</p>
+  <form method="post" class="fila">
+    <div>
+      <label for="nombre">Nombre</label>
+      <input id="nombre" name="nombre" value="{{ proyecto['nombre'] }}" required>
+    </div>
+    <div>
+      <label for="cliente">Cliente</label>
+      <input id="cliente" name="cliente" value="{{ proyecto['cliente'] }}">
+    </div>
+    <button type="submit">Guardar</button>
+    <a class="boton secundario" href="{{ url_for('exportar', proyecto_id=proyecto['id']) }}">Exportar CSV</a>
+  </form>
+</section>
+
+<section class="tarjeta">
+  <h2>Nuevo ítem</h2>
+  <form method="post" action="{{ url_for('item_nuevo', proyecto_id=proyecto['id']) }}" class="fila">
+    <div>
+      <label for="codigo">Código</label>
+      <input id="codigo" name="codigo" required>
+    </div>
+    <div>
+      <label for="descripcion">Descripción</label>
+      <input id="descripcion" name="descripcion" required>
+    </div>
+    <div>
+      <label for="unidad">Unidad</label>
+      <input id="unidad" name="unidad" placeholder="m2, m3, und" required>
+    </div>
+    <div>
+      <label for="metrado">Metrado</label>
+      <input id="metrado" name="metrado" value="0" required>
+    </div>
+    <button type="submit">Agregar ítem</button>
+  </form>
+</section>
+
+<section class="tarjeta">
+  <h2>Presupuesto</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Código</th><th>Descripción</th><th>Unidad</th><th>Metrado</th>
+        <th>Costo unitario</th><th>Valor parcial</th><th></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in items %}
+      <tr>
+        <td><a href="{{ url_for('item_detalle', item_id=item['id']) }}">{{ item['codigo'] }}</a></td>
+        <td>{{ item['descripcion'] }}</td>
+        <td>{{ item['unidad'] }}</td>
+        <td>{{ pesos(item['metrado']) }}</td>
+        <td>{{ pesos(item['costo_unitario']) }}</td>
+        <td>{{ pesos(item['valor_parcial']) }}</td>
+        <td>
+          <form method="post" action="{{ url_for('item_duplicar', item_id=item['id']) }}">
+            <button class="secundario" type="submit">Duplicar APU</button>
+          </form>
+        </td>
+      </tr>
+      {% else %}
+      <tr><td colspan="7">Agrega el primer ítem para armar el presupuesto.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <p class="total derecha">Presupuesto: ${{ pesos(total) }} COP</p>
+</section>
+{% endblock %}

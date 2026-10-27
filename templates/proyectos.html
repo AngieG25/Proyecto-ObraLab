@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block contenido %}
+<section class="tarjeta">
+  <h1>Proyectos de obra</h1>
+  <form method="post" action="{{ url_for('proyecto_nuevo') }}" class="fila">
+    <div>
+      <label for="nombre">Nombre del proyecto</label>
+      <input id="nombre" name="nombre" required>
+    </div>
+    <div>
+      <label for="cliente">Cliente</label>
+      <input id="cliente" name="cliente">
+    </div>
+    <button type="submit">Crear proyecto</button>
+  </form>
+</section>
+
+<section class="tarjeta">
+  <h2>Activos</h2>
+  {% if activos %}
+  <table>
+    <thead><tr><th>Proyecto</th><th>Cliente</th><th>Actualizado</th><th></th></tr></thead>
+    <tbody>
+      {% for proyecto in activos %}
+      <tr>
+        <td><a href="{{ url_for('proyecto_detalle', proyecto_id=proyecto['id']) }}">{{ proyecto['nombre'] }}</a></td>
+        <td>{{ proyecto['cliente'] }}</td>
+        <td>{{ proyecto['actualizado'] }}</td>
+        <td>
+          <form method="post" action="{{ url_for('proyecto_archivar', proyecto_id=proyecto['id']) }}">
+            <button class="secundario" type="submit">Archivar</button>
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <p class="ayuda">Todavía no hay proyectos activos.</p>
+  {% endif %}
+</section>
+
+{% if archivados %}
+<section class="tarjeta">
+  <h2>Archivados</h2>
+  <table>
+    <tbody>
+      {% for proyecto in archivados %}
+      <tr>
+        <td><a href="{{ url_for('proyecto_detalle', proyecto_id=proyecto['id']) }}">{{ proyecto['nombre'] }}</a></td>
+        <td>{{ proyecto['actualizado'] }}</td>
+        <td>
+          <form method="post" action="{{ url_for('proyecto_archivar', proyecto_id=proyecto['id']) }}">
+            <button class="secundario" type="submit">Reactivar</button>
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</section>
+{% endif %}
+{% endblock %}

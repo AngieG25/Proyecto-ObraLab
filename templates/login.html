@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block contenido %}
+<section class="tarjeta">
+  <h1>Iniciar sesión</h1>
+  <p class="ayuda">Prototipo local del segundo avance. Los datos se guardan en este computador.</p>
+  <form method="post">
+    <label for="correo">Correo</label>
+    <input id="correo" name="correo" type="email" required>
+    <label for="clave">Clave</label>
+    <input id="clave" name="clave" type="password" required>
+    <p><button type="submit">Entrar</button></p>
+  </form>
+  <p><a href="{{ url_for('registro') }}">Crear una cuenta</a></p>
+</section>
+{% endblock %}

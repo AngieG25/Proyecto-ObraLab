@@ -1,0 +1,87 @@
+:root {
+  --fondo: #f4f1ea;
+  --papel: #fffdf8;
+  --tinta: #1f2933;
+  --suave: #52606d;
+  --linea: #e4dccf;
+  --acento: #9a3412;
+  --acento-oscuro: #7c2d12;
+  --ok: #166534;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", Calibri, sans-serif;
+  color: var(--tinta);
+  background: var(--fondo);
+}
+
+a { color: var(--acento-oscuro); }
+
+.barra {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 28px;
+  background: #1f2933;
+  color: white;
+}
+
+.barra a { color: white; text-decoration: none; font-weight: 700; }
+.barra nav a { margin-left: 16px; font-weight: 500; }
+
+.contenido { max-width: 980px; margin: 0 auto; padding: 28px 20px 48px; }
+
+.tarjeta {
+  background: var(--papel);
+  border: 1px solid var(--linea);
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 18px;
+}
+
+h1 { font-size: 1.7rem; margin: 0 0 8px; }
+h2 { font-size: 1.15rem; margin: 0 0 12px; }
+p { line-height: 1.45; }
+
+label { display: block; font-size: 0.92rem; margin: 10px 0 4px; color: var(--suave); }
+
+input, select, button {
+  font: inherit;
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid #c8bfb2;
+}
+
+button, .boton {
+  background: var(--acento);
+  color: white;
+  border: 0;
+  text-decoration: none;
+  display: inline-block;
+  cursor: pointer;
+}
+
+button.secundario, .boton.secundario { background: #3f4c59; }
+
+.fila { display: flex; flex-wrap: wrap; gap: 10px; align-items: end; }
+.fila > div { flex: 1; min-width: 140px; }
+.fila input, .fila select { width: 100%; }
+
+table { width: 100%; border-collapse: collapse; }
+th, td { text-align: left; padding: 8px 6px; border-bottom: 1px solid var(--linea); vertical-align: top; }
+th { font-size: 0.85rem; color: var(--suave); }
+
+.aviso {
+  background: #fef3c7;
+  border: 1px solid #f59e0b;
+  padding: 10px 12px;
+  border-radius: 8px;
+  margin-bottom: 14px;
+}
+
+.total { font-size: 1.25rem; font-weight: 700; }
+.derecha { text-align: right; }
+.ayuda { color: var(--suave); font-size: 0.92rem; }

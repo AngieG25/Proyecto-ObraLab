@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% block contenido %}
+<p><a href="{{ url_for('proyecto_detalle', proyecto_id=item['proyecto_id']) }}">Volver a {{ item['proyecto_nombre'] }}</a></p>
+<section class="tarjeta">
+  <h1>APU {{ item['codigo'] }}</h1>
+  <form method="post" class="fila">
+    <div>
+      <label for="codigo">Código</label>
+      <input id="codigo" name="codigo" value="{{ item['codigo'] }}" required>
+    </div>
+    <div>
+      <label for="descripcion">Descripción</label>
+      <input id="descripcion" name="descripcion" value="{{ item['descripcion'] }}" required>
+    </div>
+    <div>
+      <label for="unidad">Unidad</label>
+      <input id="unidad" name="unidad" value="{{ item['unidad'] }}" required>
+    </div>
+    <div>
+      <label for="metrado">Metrado</label>
+      <input id="metrado" name="metrado" value="{{ item['metrado'] }}" required>
+    </div>
+    <button type="submit">Guardar ítem</button>
+  </form>
+  <p>Costo unitario: <strong>${{ pesos(costo) }}</strong></p>
+  <p>Valor parcial (metrado × costo unitario): <strong>${{ pesos(parcial) }}</strong></p>
+  <p class="ayuda">Actualizado: {{ item['actualizado'] }}</p>
+</section>
+
+<section class="tarjeta">
+  <h2>Recursos del APU</h2>
+  <form method="post" action="{{ url_for('recurso_nuevo', item_id=item['id']) }}" class="fila">
+    <div>
+      <label for="tipo">Tipo</label>
+      <select id="tipo" name="tipo">
+        <option value="material">Material</option>
+        <option value="mano_obra">Mano de obra</option>
+        <option value="equipo">Equipo</option>
+      </select>
+    </div>
+    <div>
+      <label for="descripcion_recurso">Descripción</label>
+      <input id="descripcion_recurso" name="descripcion" required>
+    </div>
+    <div>
+      <label for="cantidad">Cantidad</label>
+      <input id="cantidad" name="cantidad" value="1" required>
+    </div>
+    <div>
+      <label for="precio">Precio</label>
+      <input id="precio" name="precio" value="0" required>
+    </div>
+    <button type="submit">Agregar recurso</button>
+  </form>
+  <table>
+    <thead>
+      <tr><th>Tipo</th><th>Descripción</th><th>Cantidad</th><th>Precio</th><th>Parcial</th><th></th></tr>
+    </thead>
+    <tbody>
+      {% for recurso in recursos %}
+      <tr>
+        <td>{{ recurso['tipo'] }}</td>
+        <td>{{ recurso['descripcion'] }}</td>
+        <td>{{ pesos(recurso['cantidad']) }}</td>
+        <td>{{ pesos(recurso['precio']) }}</td>
+        <td>{{ pesos(recurso['cantidad'] * recurso['precio']) }}</td>
+        <td>
+          <form method="post" action="{{ url_for('recurso_eliminar', recurso_id=recurso['id']) }}">
+            <button class="secundario" type="submit">Quitar</button>
+          </form>
+        </td>
+      </tr>
+      {% else %}
+      <tr><td colspan="6">Este ítem todavía no tiene materiales, mano de obra ni equipo.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</section>
+{% endblock %}

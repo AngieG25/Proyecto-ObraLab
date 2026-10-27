@@ -1,0 +1,15 @@
+ObraLab — prototipo local del segundo avance
+
+1. Abre una terminal en esta carpeta (obralab_pmv).
+2. Instala la librería, una sola vez:
+   python -m pip install -r requirements.txt
+3. Arranca la aplicación:
+   python app.py
+4. En el navegador abre http://127.0.0.1:5000
+5. Crea una cuenta, un proyecto, un ítem y sus recursos de material, mano de obra y equipo.
+6. Revisa el presupuesto y usa Exportar CSV.
+7. Para las pruebas automáticas, en esta misma carpeta:
+   python -m unittest tests.test_obralab
+
+Los datos quedan en el archivo obralab.db de esta carpeta.
+Antes de subir la evidencia al Drive, toma las capturas y pégalas en BORRADOR_Segundo_avance_PMV.docx.

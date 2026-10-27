@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ObraLab</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='estilos.css') }}">
+</head>
+<body>
+  <header class="barra">
+    <a href="{{ url_for('inicio') }}">ObraLab</a>
+    <nav>
+      {% if session.get('usuario_id') %}
+        <span>{{ session.get('nombre') }}</span>
+        <a href="{{ url_for('proyectos') }}">Proyectos</a>
+        <a href="{{ url_for('salir') }}">Salir</a>
+      {% else %}
+        <a href="{{ url_for('login') }}">Ingresar</a>
+        <a href="{{ url_for('registro') }}">Crear cuenta</a>
+      {% endif %}
+    </nav>
+  </header>
+  <main class="contenido">
+    {% with mensajes = get_flashed_messages() %}
+      {% for mensaje in mensajes %}
+        <div class="aviso">{{ mensaje }}</div>
+      {% endfor %}
+    {% endwith %}
+    {% block contenido %}{% endblock %}
+  </main>
+</body>
+</html>

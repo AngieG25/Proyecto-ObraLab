@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block contenido %}
+<section class="tarjeta">
+  <h1>Crear cuenta</h1>
+  <form method="post">
+    <label for="nombre">Nombre</label>
+    <input id="nombre" name="nombre" required>
+    <label for="correo">Correo</label>
+    <input id="correo" name="correo" type="email" required>
+    <label for="clave">Clave</label>
+    <input id="clave" name="clave" type="password" minlength="6" required>
+    <p><button type="submit">Registrarme</button></p>
+  </form>
+</section>
+{% endblock %}
